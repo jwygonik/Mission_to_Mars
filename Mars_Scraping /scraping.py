@@ -110,11 +110,11 @@ def hemis(browser):
     hemi_soup = soup(html, 'html.parser')
 
 
-    hemisphere_urls = []
-    for url in hemi_soup.find('div', class_='item')
-        link = url.a['href']
-        hemi_links = f'https://marshemispheres.com/{link}'
-        hemisphere_urls.append(hemi_links)
+    # hemisphere_urls = []
+    #for url in hemi_soup.find('div', class_='item')
+     #   link = url.a['href']
+      #  hemi_links = f'https://marshemispheres.com/{link}'
+      #  hemisphere_urls.append(hemi_links)
 
     
     for i in hemi_links:
