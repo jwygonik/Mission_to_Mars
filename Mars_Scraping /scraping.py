@@ -13,12 +13,15 @@ def scrape_all():
 
     news_title, news_paragraph = mars_news(browser)
 
+    hemisphere_image_urls = hemis(browser)
+
     # Run all scraping functions and store results in a dictionary
     data = {
         "news_title": news_title,
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
+        "hemis": hemisphere_image_urls,
         "last_modified": dt.datetime.now()
     }
 
@@ -97,8 +100,40 @@ def mars_facts():
     # Convert dataframe into HTML format, add bootstrap
     return df.to_html(classes="table table-striped")
 
+
+def hemis(browser):
+    # Visit Urls
+    url = 'https://marshemispheres.com/'
+    browser.visit(url)
+    hemisphere_image_urls = []
+    html = browser.html
+    hemi_soup = soup(html, 'html.parser')
+
+
+    hemisphere_urls = []
+    for url in hemi_soup.find('div', class_='item')
+        link = url.a['href']
+        hemi_links = f'https://marshemispheres.com/{link}'
+        hemisphere_urls.append(hemi_links)
+
+    
+    for i in hemi_links:
+        hemis = {}
+        browser.visit(i)
+        hemi_elem = browser.find_link_by_text('Sample').first
+        hemis['img_url'] = hemi_elem['href']
+
+        title = browser.find_by_css('h2.title').text    
+        hemis['img_url'] = img_url    
+        hemis['title'] = title
+        hemisphere_image_urls.append(hemis)
+
+        browser.back()
+
+    return hemisphere_image_urls
+
+
 if __name__ == "__main__":
 
     # If running as script, print scraped data
     print(scrape_all())
-    
